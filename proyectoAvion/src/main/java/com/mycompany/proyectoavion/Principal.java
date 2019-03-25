@@ -16,7 +16,9 @@ import java.util.Scanner;
  */
 public class Principal {
      Map<Integer,Avion> mapaAvion = new HashMap<>();
-     Map<Integer,Silla> mapaSilla = new HashMap<>();
+     Map<Integer,Snormal> mapaSillaN = new HashMap<>();
+     Map<Integer,Sprefencial> mapaSillaP = new HashMap<>();
+     
      Map<Integer,Persona> persona = new HashMap<>();
     public Principal() {
     }
@@ -53,37 +55,56 @@ public void agregarPersona(){
      
         Avion cargarAvionN = new Avion(capacidad, "d");
       
-        if(op==1){
-        Silla cargarSilla = new Snormal();
-        mapaSilla = cargarSilla.cargarSilla(capacidad, precio);
+        Snormal cargarSilla = new Snormal();
+        mapaSillaN = cargarSilla.cargarSilla(capacidad, precio);
         
-        for(Integer key:mapaSilla.keySet()){
-            cargarSilla = mapaSilla.get(key);
+        for(Integer key:mapaSillaN.keySet()){
+            cargarSilla = mapaSillaN.get(key);
             cargarAvionN.getMapaSilla().put(cargarSilla.getNumero(), cargarSilla);
         }
           mapaAvion.put(op, cargarAvionN);
-    }
+ }
+ 
+ public void cargarAvionPrefrencial(int op, int capacidad,double precio,int tamano){
+
+        Avion cargarAvionN = new Avion(capacidad, "d");
+
+       Sprefencial cargarSilla = new Sprefencial();
+       mapaSillaP = cargarSilla.cargarSillaP(capacidad, precio, tamano);
+        
+        for(Integer key:mapaSillaP.keySet()){
+            cargarSilla = mapaSillaP.get(key);
+            cargarAvionN.getMapaSilla().put(cargarSilla.getNumero(), cargarSilla);
+            
+        }
+          mapaAvion.put(op, cargarAvionN);
+          
  }
  
  public void verAvion(int nAvion){
      for(Integer key:mapaAvion.keySet()){
-         
+       
          if(key==nAvion){
          Avion ver = mapaAvion.get(key);
             String verDisponibles = "";
             String verOcupados="";
             String  agrupar ="";
             int i=0;
+             
          for(Integer keysilla: ver.getMapaSilla().keySet()){
+             
             Silla silla = ver.getMapaSilla().get(keysilla);
+      
+             if(silla instanceof Snormal){
+                 
              
             if(silla.getEstado().equals("d")){
                 i++;
-                verDisponibles="\033[32m"+silla.getNumero()+"n"+" ";
+                verDisponibles="\033[32m"+((Snormal)silla).getNumero()+"n"+" ";
                 agrupar=agrupar+verDisponibles;
             }else{
                 i++;
-                verOcupados="\033[31m"+silla.getNumero()+"n"+" ";
+                verOcupados="\033[31m"+((Snormal)silla).getNumero()+"n"+" ";
                 agrupar=agrupar+verOcupados;
             }
           if(i==4){
@@ -93,12 +114,34 @@ public void agregarPersona(){
                 agrupar="";
           }
           
+             }
+              
+             if(silla instanceof Sprefencial){
+                     
+                     if(silla.getEstado().equals("d")){
+                i++;
+                verDisponibles="\033[32m"+((Sprefencial)silla).getNumero()+"p"+" ";
+                agrupar=agrupar+verDisponibles;
+            }else{
+                i++;
+                verOcupados="\033[31m"+((Sprefencial)silla).getNumero()+"p"+" ";
+                agrupar=agrupar+verOcupados;
+            }
+          if(i==4){
+                
+                System.out.println("* "+agrupar+"*");
+                i=0;
+                agrupar="";
+          }
+                     
+                 }
+             }
           
     } 
              
          }
          }
-     }
+     
      
  
 
@@ -108,7 +151,7 @@ public String comprar(int idAvion){
    for(Integer keya:mapaAvion.keySet()){
        Avion avion= mapaAvion.get(keya);
        if(idAvion==keya && avion.getEstadoA().equals("d")){
-           verAvion(keya);
+           verAvion(idAvion);
            
            
             
@@ -122,7 +165,7 @@ public String comprar(int idAvion){
              comprar.setEstado("o");
              mensaje ="Compra Exitosa";
              
-             verAvion(1);
+             verAvion(idAvion);
              break;
          }else{
              mensaje ="No existe o Esta ocupada";
@@ -132,8 +175,6 @@ public String comprar(int idAvion){
          
      }
            
-       }else{
-           System.err.println("Avion No Disponible");
        }
    }
    
@@ -143,12 +184,16 @@ public String comprar(int idAvion){
       
 
 
-public void despegar(int idAvion){
+public String despegar(int idAvion){
     double suma = 0;
+    String ms="";
     for(Integer key : mapaAvion.keySet()){
-        
+        Avion despegar = mapaAvion.get(key);
+        if(despegar.getEstadoA().equals("o")){
+            ms="El avion ya Despego";
+        }else{
         if(key==idAvion){
-            Avion despegar = mapaAvion.get(key);
+            
             despegar.setEstadoA("o");
             
             for(Integer keySilla: despegar.getMapaSilla().keySet()){
@@ -158,9 +203,11 @@ public void despegar(int idAvion){
                 }
             }
         }
+         ms="Despego con una ganancia de: "+suma;
     }
-    System.err.println("Despego con una ganancia de: "+suma);
- 
+        
+    }
+    return ms;
 }
 
 public String aterrizar(int idAvion){

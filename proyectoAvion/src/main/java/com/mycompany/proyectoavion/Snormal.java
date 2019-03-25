@@ -5,12 +5,16 @@
  */
 package com.mycompany.proyectoavion;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  *
  * @author CamiloAlvarez
  */
 public class Snormal extends Silla{
 
+    private Map<Integer,Snormal> mapaSilla = new HashMap<>();
     public Snormal() {
     }
 
@@ -18,4 +22,16 @@ public class Snormal extends Silla{
         super(numero, valor, estado);
     }
     
+      
+    public  Map<Integer,Snormal> cargarSilla(int cantidad,double precio){
+       
+        for(int i=1;i<=cantidad;i++){
+            Snormal cargar;
+            
+            cargar = new Snormal(i,precio,"d");
+            
+          mapaSilla.put(i, cargar);
+        }  
+     return mapaSilla;
+    }
 }

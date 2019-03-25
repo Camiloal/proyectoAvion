@@ -17,8 +17,6 @@ public class  Silla {
     private double valor;
     private String estado;
     
-    private Map<Integer,Silla> mapaSilla = new HashMap<>();
-
     public Silla() {
     }
 
@@ -28,18 +26,7 @@ public class  Silla {
         this.estado = estado;
     }
 
-   
-    public  Map<Integer,Silla> cargarSilla(int cantidad,double precio){
-       
-        for(int i=1;i<=cantidad;i++){
-            Silla cargar;
-            
-            cargar = new Silla(i,precio,"d");
-            
-          mapaSilla.put(i, cargar);
-        }  
-     return mapaSilla;
-    }
+ 
 
     public int getNumero() {
         return numero;
@@ -65,13 +52,4 @@ public class  Silla {
         this.estado = estado;
     }
 
-    public Map<Integer, Silla> getMapaSilla() {
-        return mapaSilla;
-    }
-
-    public void setMapaSilla(Map<Integer, Silla> mapaSilla) {
-        this.mapaSilla = mapaSilla;
-    }
-    
-    
 }

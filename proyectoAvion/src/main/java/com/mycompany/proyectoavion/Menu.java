@@ -46,11 +46,11 @@ public class Menu {
                  break;
                  
              case 2:
-                 int op;
+                
                 do{
-                    op=menuAvion();
+                    opcion=menuAvion();
                     
-                    switch(op){
+                    switch(opcion){
                         case 1:
                             
                             System.out.println("Avion Normal..Cargar");
@@ -69,17 +69,111 @@ public class Menu {
                             break;
                         case 3:
                             
-                           agregar.despegar(1);
+                          String msd=  agregar.despegar(1);
+                          System.out.println("-->"+msd);
                             break;
                         case 4:
                          String msa= agregar.aterrizar(1);
                          System.out.println("-->"+msa);
                          break;
+                         
+                        case 5:
+                            menuInicial();
                    }
                     
                     
-                }while(op!=5);
+                }while(opcion!=5);
+                
+             case 3: 
+                  
+                do{
+                    opcion=menuAvion();
+                    
+                    switch(opcion){
+                        case 1:
+                            
+                            System.out.println("Avion Preferencial..Cargar");
+                            System.out.println("--------------------------------------");
+                                 System.err.println("CAPACIDAD: Ingrese # de sillas preferenciales: ");
+                                 int nSillas = scan.nextInt();
+                                 System.err.println("Precio Sillas: ");
+                                 double precio = scan.nextInt();
+                                 System.err.println("Tamaño de Pantalla");
+                                 int tamano=scan.nextInt();
+                                 agregar.cargarAvionPrefrencial(2, nSillas, precio,tamano);
+                                 System.err.println("Avion Cargado Exitosamente");
+                                 break;
+                                
+                        case 2:
+                            String ms= agregar.comprar(2);
+                            System.out.println("-->"+ms);
+                            break;
+                        case 3:
+                            
+                          String msd=  agregar.despegar(2);
+                          System.out.println("-->"+msd);
+                            break;
+                        case 4:
+                         String msa= agregar.aterrizar(2);
+                         System.out.println("-->"+msa);
+                         break;
+                         
+                        case 5:
+                            menuInicial();
+                   }
+                    
+                    
+                }while(opcion!=5);
+                
+             case 4:
+                           do{
+                    opcion=menuAvion();
+                    
+                    switch(opcion){
+                        case 1:
+                            System.out.println("Avion Mixto..Cargar");
+                            System.out.println("--------------------------------------");
+                                 System.err.println("CAPACIDAD: Ingrese # de sillas Normales: ");
+                                 int nSillas = scan.nextInt();
+                                 System.err.println("Precio Sillas: ");
+                                 double precio = scan.nextInt();
+                                 agregar.cargarAvionNormal(3, nSillas, precio);
+                      
+                            System.out.println(" ");
+                            System.out.println("--------------------------------------");
+                                 System.err.println("CAPACIDAD: Ingrese # de sillas preferenciales: ");
+                                 int  nSillasm = scan.nextInt();
+                                 System.err.println("Precio Sillas: ");
+                                 double preciom = scan.nextInt();
+                                 System.err.println("Tamaño de Pantalla");
+                                 int tamano=scan.nextInt();
+                                 agregar.cargarAvionPrefrencial(3, nSillasm, preciom,tamano);
+                                 System.err.println("Avion Cargado Exitosamente");
+                                 break;
+                                
+                        case 2:
+                            String ms= agregar.comprar(3);
+                            System.out.println("-->"+ms);
+                            break;
+                        case 3:
+                            
+                          String msd=  agregar.despegar(3);
+                          System.out.println("-->"+msd);
+                            break;
+                        case 4:
+                         String msa= agregar.aterrizar(3);
+                         System.out.println("-->"+msa);
+                         break;
+                         
+                        case 5:
+                            menuInicial();
+                   }
+                    
+                    
+                }while(opcion!=5);
+                  
          }
+         
           
          } catch(InputMismatchException ex){
             System.out.println("Error.. opcion no valida");
