@@ -28,7 +28,7 @@ public class Menu {
         do {
         Scanner scan = new Scanner(System.in);
               
-        System.out.println("...Biembenido...");
+        System.out.println("...Bienvenido...");
         System.out.println("------------------- ");
         System.out.println("1.Agregar Persona.");
         System.out.println("2.Avion Normal.");
