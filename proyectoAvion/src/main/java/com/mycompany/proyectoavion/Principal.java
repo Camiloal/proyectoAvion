@@ -146,18 +146,37 @@ public void agregarPersona(){
  
 
 public String comprar(int idAvion){
+    
+    
+    
   String mensaje = "";
    Scanner scan = new Scanner(System.in);
+   int cc=0;
+   try{
+   System.out.println("Ingrese cedula: ");
+    cc=scan.nextInt();
+   }catch(ArithmeticException ex){
+       System.err.println("Error.. No es un numero");
+   }
+    
+        for(Integer keyp: persona.keySet()){
+            Persona mostrar = persona.get(keyp);
+            if(cc==mostrar.getCc()){
+                
+      
    for(Integer keya:mapaAvion.keySet()){
        Avion avion= mapaAvion.get(keya);
        if(idAvion==keya && avion.getEstadoA().equals("d")){
            verAvion(idAvion);
+           int selec = 0;
            
-           
-            
+           try{ 
             System.err.println("Ingrese # de silla: ");
-            int selec = scan.nextInt();
-
+            selec = scan.nextInt();
+           }catch(Exception ex){
+               System.err.println("Error.. No es un numero");
+               
+           }
         for(Integer key :avion.getMapaSilla().keySet()){
          Silla comprar=avion.getMapaSilla().get(key);
          if(key==selec && comprar.getEstado().equals("d")){
@@ -175,8 +194,15 @@ public String comprar(int idAvion){
          
      }
            
+       }else{
+           mensaje="Avion no disponible";
        }
    }
+         }else{
+                mensaje="Usuario No Registrado.";
+                }
+           
+        }
    
      return mensaje;
    }
@@ -189,10 +215,12 @@ public String despegar(int idAvion){
     String ms="";
     for(Integer key : mapaAvion.keySet()){
         Avion despegar = mapaAvion.get(key);
+        if(key==idAvion){ 
         if(despegar.getEstadoA().equals("o")){
             ms="El avion ya Despego";
+            break;
         }else{
-        if(key==idAvion){
+        
             
             despegar.setEstadoA("o");
             
@@ -204,6 +232,7 @@ public String despegar(int idAvion){
             }
         }
          ms="Despego con una ganancia de: "+suma;
+           
     }
         
     }

@@ -38,7 +38,12 @@ public class Menu {
         System.out.println("ingrese opcion: ");
         try{ 
         opcion = scan.nextInt();
-       
+          
+         } catch(InputMismatchException ex){
+            System.out.println("Error.. opcion no valida");
+        
+        }
+        
          switch (opcion) {
              case 1:
                  
@@ -48,11 +53,16 @@ public class Menu {
              case 2:
                 
                 do{
-                    opcion=menuAvion();
-                    
+                      try{ 
+                       opcion=menuAvion();
+          
+                       } catch(InputMismatchException ex){
+                          System.out.println("Error.. opcion no valida");
+                          break;
+                         }
                     switch(opcion){
                         case 1:
-                            
+                            try{
                             System.out.println("Avion Normal..Cargar");
                             System.out.println("--------------------------------------");
                                  System.err.println("CAPACIDAD: Ingrese # de sillas: ");
@@ -61,6 +71,9 @@ public class Menu {
                                  double precio = scan.nextInt();
                                  agregar.cargarAvionNormal(1, nSillas, precio);
                                  System.err.println("Avion Cargado Exitosamente");
+                            }catch(ArithmeticException ex){
+                                System.out.println("Error..Datos incorrectos tiene que ser numeros");
+                            }
                                  break;
                                 
                         case 2:
@@ -87,11 +100,17 @@ public class Menu {
              case 3: 
                   
                 do{
-                    opcion=menuAvion();
                     
+                   try{ 
+                       opcion=menuAvion();
+          
+                       } catch(InputMismatchException ex){
+                          System.out.println("Error.. opcion no valida");
+                           break;
+                         }
                     switch(opcion){
                         case 1:
-                            
+                            try{
                             System.out.println("Avion Preferencial..Cargar");
                             System.out.println("--------------------------------------");
                                  System.err.println("CAPACIDAD: Ingrese # de sillas preferenciales: ");
@@ -103,7 +122,11 @@ public class Menu {
                                  agregar.cargarAvionPrefrencial(2, nSillas, precio,tamano);
                                  System.err.println("Avion Cargado Exitosamente");
                                  break;
+                            }catch(ArithmeticException ex){
                                 
+                                System.out.println("Error..Datos incorrectos tiene que ser numeros");
+                                break;
+                            }
                         case 2:
                             String ms= agregar.comprar(2);
                             System.out.println("-->"+ms);
@@ -127,10 +150,17 @@ public class Menu {
                 
              case 4:
                            do{
-                    opcion=menuAvion();
+                   try{ 
+                       opcion=menuAvion();
+          
+                       } catch(InputMismatchException ex){
+                          System.out.println("Error.. opcion no valida");
+                          break;
+                         }
                     
                     switch(opcion){
                         case 1:
+                            try{
                             System.out.println("Avion Mixto..Cargar");
                             System.out.println("--------------------------------------");
                                  System.err.println("CAPACIDAD: Ingrese # de sillas Normales: ");
@@ -150,7 +180,10 @@ public class Menu {
                                  agregar.cargarAvionPrefrencial(3, nSillasm, preciom,tamano);
                                  System.err.println("Avion Cargado Exitosamente");
                                  break;
-                                
+                            }catch(ArithmeticException ex){
+                                System.out.println("Error..Datos incorrectos tiene que ser numeros");
+                                break;
+                            }
                         case 2:
                             String ms= agregar.comprar(3);
                             System.out.println("-->"+ms);
@@ -174,11 +207,8 @@ public class Menu {
                   
          }
          
-          
-         } catch(InputMismatchException ex){
-            System.out.println("Error.. opcion no valida");
-        
-        }  
+       
+         
          }while(opcion!=5);
              
     }
@@ -192,7 +222,9 @@ public class Menu {
             System.err.println("3.Despegar");
             System.err.println("4.Aterrizar");
             System.err.println("5.Salir");
+            
             opcion = scan.nextInt();
+           
         return opcion;
     }
 }
